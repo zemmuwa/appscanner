@@ -16,9 +16,6 @@
     <allow-intent href="geo:*" />
     <allow-intent href="whatsapp:*" />
     <platform name="android">
-        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
-            <application android:allowBackup="false" />
-        </edit-config>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/icon-36-ldpi.png" />
         <icon density="mdpi" src="res/android/icon-48-mdpi.png" />

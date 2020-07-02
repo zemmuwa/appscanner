@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cordova-android": "^8.1.0",
-    "cordova-meida-sayang": "file:../../../Plugman/RORO",
+    "cordova-meida-sayang": "git+https://github.com/zemmuwa/cordova-roro.git",
     "cordova-plugin-appminimize": "^1.0.1",
     "cordova-plugin-awesome-shared-preferences": "git+https://github.com/adriano-di-giovanni/cordova-plugin-shared-preferences.git",
     "cordova-plugin-deeplinks": "^1.1.1",
