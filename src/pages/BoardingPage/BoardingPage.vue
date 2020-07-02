@@ -1,125 +1,240 @@
 <template>
   <q-page class="flex">
     <div class="row full-height full-width q-px-md q-mt-md">
-      <q-select
-        filled
-        v-model="selectedJadwal"
-        use-input
-        hide-selected
-        input-debounce="0"
-        label="Pilih Jadwal"
-        :options="filteredDetailJadwal"
-        @filter="filterFn"
-        style="width: 250px"
-        behavior="menu"
-        fill-input
-        map-options
-        class="full-width"
-      >
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey">
-              Tidak ada data
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
-      <div v-if="data.panggilan" class="full-width">
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.panggilan"
-          label="Panggilan"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="getFormatedData(data.harga, 'number')"
-          label="Harga"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.nama_penumpnag"
-          label="Nama Penumpang"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.nomer_booking"
-          label="Nomor Booking"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="getFormatedData(data.tgl_lahir, 'date')"
-          label="Tgl. Lahir"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.no_identitas"
-          :label="
-            data.GolonganJenis.toLowerCase() == `kendaraan`
-              ? `No. Kendaraan`
-              : `No. Identitas`
-          "
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.keterangan"
-          label="Keterangan"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          value="Boarding"
-          label="Status"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="
-            data.KelasID ? data.KelasNama : data.KelasID == 0 ? 'Ekonomi' : ''
-          "
-          label="Kelas"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.GolonganNama"
-          label="Golongan"
-          readonly=""
-          color="primary"
-        />
-        <q-input
-          class="full-width"
-          outlined
-          :value="data.KotaNama"
-          label="Kota"
-          readonly=""
-          color="primary"
-        />
-      </div>
+      <q-card class="q-mt-sm full-width">
+        <q-card-section>
+          <div class="row">
+            <div class="col-4">
+              <span class="text-caption text-primary">Rute</span>
+            </div>
+            <div class="col-8 text-right">
+              <span class="text-caption text-primary">Keberangkatan</span>
+            </div>
+            <div class="col-4">
+              <span class="text-caption text-no-wrap">{{
+                selectedJadwal ? selectedJadwal.POL : ""
+              }}</span>
+              <q-icon color="primary" class="q-mx-sm" name="arrow_right_alt" />
+              <span class="text-caption text-no-wrap">{{
+                selectedJadwal ? selectedJadwal.POD : ""
+              }}</span>
+            </div>
+            <div class="col-8 text-right">
+              <span class="text-caption text-primary">{{
+                selectedJadwal ? selectedJadwal.TglKeberangkatan : ""
+              }}</span>
+            </div>
+          </div>
+          <hr class="dashed text-primary" />
+
+          <q-btn-dropdown
+            class="full-width"
+            unelevated
+            align="between"
+            dense
+            color="primary"
+            flat
+          >
+            <q-list>
+              <q-item
+                @click="setSelectedJadwal(index)"
+                v-for="(val, index) in filteredDetailJadwal"
+                :key="index"
+                clickable
+                v-close-popup
+              >
+                <q-item-section>
+                  <q-item-label class="text-primary text-caption">{{
+                    val.KapalNama
+                  }}</q-item-label>
+                  <q-item-label class="text-caption row justify-between"
+                    ><div class="row full-width">
+                      <div class="col-4">
+                        <span class="text-caption text-no-wrap">{{
+                          val.POL
+                        }}</span>
+                        <q-icon
+                          color="primary"
+                          class="q-mx-sm"
+                          name="arrow_right_alt"
+                        />
+                        <span class="text-caption text-no-wrap">{{
+                          val.POD
+                        }}</span>
+                      </div>
+                      <div class="col-8 text-right">
+                        <span class="text-caption text-primary">{{
+                          val.TglKeberangkatan
+                        }}</span>
+                      </div>
+                    </div>
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+            <template slot="label">
+              <span class="text-caption"
+                >{{ selectedJadwal ? selectedJadwal.KapalNama : "" }}
+              </span>
+            </template>
+          </q-btn-dropdown>
+        </q-card-section>
+      </q-card>
+
+      <q-card class="q-my-sm">
+        <q-card-section>
+          <div class="row full-height full-width q-mt-md">
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <q-form @submit="onSubmit()">
+                  <q-input
+                    ref="nomorBooking"
+                    stack-label
+                    dense
+                    @focus="scrollToElement(getRefs('nomorBooking').$el)"
+                    class="full-width"
+                    v-model="nomer_booking"
+                    :disable="selectedJadwal ? false : true"
+                    label="Nomor Booking"
+                    color="primary"
+                    placeholder="Masukan Nomor Booking"
+                  />
+                </q-form>
+              </div>
+            </div>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Jenis Tiket</span>
+                <span class="text-caption h-min-15">{{ data.JenisTiket }}</span>
+              </div>
+            </div>
+            <template v-if="data.Pembeda == 'CHECKIN_PENUMPANG'">
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nama Penumpang</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NamaPenumpang
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary"
+                    >Jenis - Nomer Identitas</span
+                  >
+                  <span class="text-caption h-min-15">{{
+                    data.JenisNomorIdentitas
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Kelas - Tiket</span>
+                  <span class="text-caption h-min-15">{{
+                    data.KelasTiket
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Tanggal Lahir (Umur)</span>
+                  <span class="text-caption h-min-15">{{
+                    data.TglLahirUmur
+                  }}</span>
+                </div>
+              </div>
+            </template>
+            <template v-if="data.Pembeda == 'CHECKIN_KENDARAAN_PROFIT'">
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nama Pemilik / STNK</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NamaPemilik
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Kendaraan</span>
+                  <span class="text-caption h-min-15">{{
+                    data.Kendaraan
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nomor Rangka</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NomorRangka
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nomor Mesin</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NomorMesin
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nomor Faktur</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NomorFaktur
+                  }}</span>
+                </div>
+              </div>
+            </template>
+            <template v-if="data.Pembeda == 'CHECKIN_KENDARAAN'">
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nama Pemilik / STNK</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NamaPemilik
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Kendaraan</span>
+                  <span class="text-caption h-min-15">{{
+                    data.Kendaraan
+                  }}</span>
+                </div>
+              </div>
+              <div class="border-dashed-roro full-width">
+                <div class="column q-pa-sm">
+                  <span class="text-10 text-primary">Nomor Polisi</span>
+                  <span class="text-caption h-min-15">{{
+                    data.NomorPolisi
+                  }}</span>
+                </div>
+              </div>
+            </template>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Tarif Pass</span>
+                <span class="text-caption h-min-15">{{ data.TarifPass }}</span>
+              </div>
+            </div>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Harga Tiket</span>
+                <span class="text-caption h-min-15">{{ data.HargaTiket }}</span>
+              </div>
+            </div>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Keterangan Tiket</span>
+                <span class="text-caption h-min-15">{{
+                  data.KeteranganTiket
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
     </div>
     <q-page-sticky
       v-if="selectedJadwal"
@@ -137,3 +252,8 @@
 </template>
 
 <script src="./BoardingPage.js"></script>
+<style scoped>
+.h-min-15 {
+  min-height: 15px;
+}
+</style>

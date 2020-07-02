@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+import { LocalStorage } from "quasar";
+LocalStorage.set("isNotSplash", false);
 var sharedPreferences;
 document.addEventListener("deviceready", function() {
   sharedPreferences = window.plugins.SharedPreferences.getInstance();

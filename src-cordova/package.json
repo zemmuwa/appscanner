@@ -20,6 +20,7 @@
     "cordova-plugin-deeplinks": "^1.1.1",
     "cordova-plugin-qr-barcode-scanner": "^8.0.3",
     "cordova-plugin-splashscreen": "^5.0.3",
+    "cordova-plugin-statusbar": "^2.4.3",
     "cordova-sqlite-storage": "git+https://github.com/xpbrew/cordova-sqlite-storage.git"
   },
   "devDependencies": {
@@ -28,15 +29,16 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-qr-barcode-scanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-deeplinks": {},
       "cordova-plugin-appminimize": {},
       "cordova-meida-sayang": {},
       "cordova-sqlite-storage": {},
-      "cordova-plugin-awesome-shared-preferences": {}
+      "cordova-plugin-awesome-shared-preferences": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-qr-barcode-scanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     },
     "platforms": [
       "android"

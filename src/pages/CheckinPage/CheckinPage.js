@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$refs.nomorBooking.blur();
       let _this = this;
       this.post({
         url: `${_this.baseURL}getDataFromQR`,
@@ -47,9 +48,9 @@ export default {
           this.data = values.data;
         }
         if (values.info == "success") {
-          this.showNotif(values.message, "green");
+          this.showNotif(values.message, "secondary", "done");
         } else {
-          this.showNotif(values.message);
+          this.showNotif(values.message, "accent");
         }
       });
     },
@@ -61,7 +62,7 @@ export default {
           _this.onSubmit();
         },
         function(error) {
-          alert("Scanning failed: " + error);
+          this.showNotif(error, "accent");
         },
         {
           preferFrontCamera: false, // iOS and Android
@@ -83,5 +84,7 @@ export default {
       return capitalize(param);
     }
   },
-  mounted() {}
+  mounted() {
+    this.setBarTitle("Check-in");
+  }
 };

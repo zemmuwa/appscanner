@@ -89,7 +89,12 @@ module.exports = function(ctx) {
       directives: ["Scroll"],
 
       // Quasar plugins
-      plugins: ["Notify", "Loading", "LocalStorage", "Dialog"]
+      plugins: ["Notify", "Loading", "LocalStorage", "Dialog"],
+      config: {
+        ripple: {
+          /* look at QUASARCONFOPTIONS from the API card (bottom of page) */
+        }
+      }
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -129,7 +134,7 @@ module.exports = function(ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: ["slideInDown", "slideOutDown", "fadeIn"],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
@@ -181,9 +186,12 @@ module.exports = function(ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      id: "org.prahu.roro"
+      //id: "org.prahu.roro.rc"
+      //id: "org.prahu.roro.live"
+      //id: "org.prahu.roro.demo"
+      id: "org.prahu.roro",
+      version: "1.1.b2"
     },
-
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
       hideSplashscreen: true

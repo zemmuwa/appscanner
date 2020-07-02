@@ -15,6 +15,12 @@ export default {
   },
   computed: {},
   methods: {
+    openWA() {
+      window.open(
+        "https://api.whatsapp.com/send?phone=6281132291988",
+        "_system"
+      );
+    },
     goToForgotPassword() {
       this.$router.push("/forgot-password");
     },
@@ -45,7 +51,7 @@ export default {
           }
           this.$router.push("/home");
         } else {
-          this.showNotif();
+          this.showNotif(values.msg);
           this.removeJello();
         }
       });
@@ -61,7 +67,18 @@ export default {
       setTimeout(() => {
         _this.bounce = false;
       }, 1000);
+    },
+    onClickEye() {
+      this.isPwd = !this.isPwd;
+      if (!this.password && this.isPwd) {
+        this.$refs.password.blur();
+      }
     }
   },
-  mounted() {}
+  mounted() {
+    this.setAnimIn("slideInDown");
+    this.setAnimOut("slideOutDown");
+    // this.$q.localStorage.remove("isNotSplash");
+    // alert(this.$q.localStorage.getItem("isNotSpalsh"));
+  }
 };

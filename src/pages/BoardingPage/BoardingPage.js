@@ -84,57 +84,71 @@ export default {
   },
   methods: {
     onSubmit() {
-      let _this = this;
-      // eslint-disable-next-line no-unused-vars
-      let val = null;
-      let yet = 0;
-      let update = async param => {
-        val = param;
-        if (val) {
-          let data = sql.getDetailBookingDataByNomorBooking(
-            _this.nomer_booking,
-            _this.selectedJadwal.value
-          );
-          setTimeout(() => {
-            // eslint-disable-next-line no-console
-            if (data.length) {
-              _this.data = JSON.parse(data[0].JsonData);
-              if (yet == 1) {
-                this.showNotif("Data sudah discan", "red");
-              } else {
-                this.showNotif("Data berhasil discan", "green");
-              }
-            } else {
-              this.showNotif("Nomor Booking tidak terdaftar pada jadwal ini");
-            }
-          }, 500);
-        } else {
-          this.showNotif("Scan Gagal");
-        }
-      };
+      this.$refs.nomorBooking.blur();
+      if (this.selectedJadwal) {
+        let _this = this;
+        // eslint-disable-next-line no-unused-vars
+        let val = null;
+        let yet = 0;
+        let update = async param => {
+          // eslint-disable-next-line no-console
+          console.log(param);
+          val = param;
+          if (val) {
+            let data = sql.getDetailBookingDataByNomorBooking(
+              _this.nomer_booking,
+              _this.selectedJadwal.ID
+            );
+            setTimeout(() => {
+              // eslint-disable-next-line no-console
+              console.log(_this.selectedJadwal.ID, "ok");
+              if (data.length) {
+                // eslint-disable-next-line no-console
 
-      let data = sql.getDetailBookingDataByNomorBooking(
-        _this.nomer_booking,
-        _this.selectedJadwal.value
-      );
-      setTimeout(() => {
-        // eslint-disable-next-line no-console
-        if (data.length) {
-          _this.data = JSON.parse(data[0].JsonData);
-          if (data[0].IsScanned == 1) {
-            yet = 1;
+                _this.data = JSON.parse(data[0].JsonData);
+                if (yet == 1) {
+                  this.showNotif("Data sudah discan", "accent");
+                } else {
+                  this.showNotif("Data berhasil discan", "secondary", "done");
+                }
+              } else {
+                this.showNotif(
+                  "Nomor Booking tidak terdaftar pada jadwal ini",
+                  "accent"
+                );
+              }
+            }, 500);
           } else {
-            yet = 0;
+            this.showNotif("Scan Gagal", "accent");
           }
-        }
-        sql.scanDetailBookingData(
-          this.nomer_booking,
-          this.selectedJadwal.value,
-          {
-            success: update
-          }
+        };
+
+        let data = sql.getDetailBookingDataByNomorBooking(
+          _this.nomer_booking,
+          _this.selectedJadwal.ID
         );
-      }, 500);
+        setTimeout(() => {
+          // eslint-disable-next-line no-console
+          console.log(_this.selectedJadwal.ID, "ok2");
+          if (data.length) {
+            _this.data = JSON.parse(data[0].JsonData);
+            if (data[0].IsScanned == 1) {
+              yet = 1;
+            } else {
+              yet = 0;
+            }
+          }
+          sql.scanDetailBookingData(
+            this.nomer_booking,
+            this.selectedJadwal.value,
+            {
+              success: update
+            }
+          );
+        }, 500);
+      } else {
+        this.showNotif("Pilih jadwal terlebih dahulu", "accent");
+      }
     },
     onlineScan() {
       let _this = this;
@@ -150,9 +164,9 @@ export default {
           this.data = values.data;
         }
         if (values.info == "success") {
-          this.showNotif(values.message, "green");
+          this.showNotif(values.message, "secondary", "done");
         } else {
-          this.showNotif(values.message);
+          this.showNotif(values.message, "accent");
         }
       });
     },
@@ -184,6 +198,8 @@ export default {
       sp.get("jadwal", x => {
         _this.dataDetailJadwal = x.data;
         _this.filteredDetailJadwal = x.data;
+        // eslint-disable-next-line no-console
+        console.log(_this.filteredDetailJadwal);
         Loading.hide();
       });
       // this.post({
@@ -200,6 +216,9 @@ export default {
       //     this.showNotif(values.message);
       //   }
       // });
+    },
+    setSelectedJadwal(index) {
+      this.selectedJadwal = this.filteredDetailJadwal[index];
     },
     openScanner() {
       let _this = this;
@@ -228,6 +247,9 @@ export default {
     }
   },
   mounted() {
-    this.loadData();
+    this.setBarTitle("Boarding");
+    if (this.$q.platform.is.cordova) {
+      this.loadData();
+    }
   }
 };

@@ -2,7 +2,7 @@ const routes = [
   {
     path: "/",
     redirect: "/home",
-    component: () => import("layouts/MainLayout.vue"),
+    component: () => import("layouts/NewLayout.vue"),
     children: [
       {
         path: "home",
@@ -32,6 +32,11 @@ const routes = [
         component: () =>
           import("pages/LaporanBoardingPage/LaporanBoardingPage.vue"),
         name: "laporanBoarding-page"
+      },
+      {
+        path: "akun-saya",
+        component: () => import("pages/AccountPage/AccountPage.vue"),
+        name: "akunSaya-page"
       }
       // {
       //   path: "validate-account/:id",
@@ -49,6 +54,20 @@ const routes = [
       //     validate: true
       //   })
       // }
+    ]
+  },
+  {
+    path: "/splashscreen",
+    component: () => import("layouts/FlatLayout.vue"),
+    props: () => ({
+      isBlank: true
+    }),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/SplashPage/SplashPage.vue"),
+        name: "splash-page"
+      }
     ]
   },
   {

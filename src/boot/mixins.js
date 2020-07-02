@@ -1,5 +1,7 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import { date, format } from "quasar";
+import { scroll } from "quasar";
+const { getScrollTarget, setScrollPosition } = scroll;
 // destructuring to keep only what is needed
 const { capitalize } = format;
 //import moment from "moment";
@@ -27,13 +29,18 @@ export default ({ Vue, store }) => {
     methods: {
       ...mapActions("GlobalData", getPropsModul("_actions", "GlobalData")),
       ...mapActions("WebService", getPropsModul("_actions", "WebService")),
-      ...mapMutations("WebService", ["setIdentity"]),
-      ...mapMutations("GlobalData", ["setBarTitle"]),
-      showNotif(param = "Gagal Saat Request", color = "red") {
+      ...mapMutations("WebService", getPropsModul("_mutations", "WebService")),
+      ...mapMutations("GlobalData", getPropsModul("_mutations", "GlobalData")),
+      showNotif(
+        param = "Gagal Saat Request",
+        color = "red",
+        icon = "error_outline"
+      ) {
         this.$q.notify({
           message: param,
           color: color,
-          position: "top"
+          position: "top",
+          icon: icon
         });
       },
       formatDateTime(param, format) {
@@ -88,6 +95,16 @@ export default ({ Vue, store }) => {
             break;
         }
         return cek;
+      },
+      scrollToElement(el) {
+        // eslint-disable-next-line no-console
+        const target = getScrollTarget(el);
+        const offset = el.offsetTop + 64;
+        const duration = 500;
+        setScrollPosition(target, offset, duration);
+      },
+      getRefs(key) {
+        return this.$refs[key];
       }
     },
 

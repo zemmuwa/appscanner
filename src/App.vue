@@ -22,7 +22,7 @@ export default {
     universalLinks.subscribe("doResetPassword", _this.resetPassword);
   },
   computed: {
-    ...mapState("WebService", ["token", "role", "expTime", "uuid", "id"])
+    ...mapState("WebService", ["token", "role", "expTime", "uuid", "userID"])
   },
   methods: {
     ...mapMutations("WebService", ["setIdentity"]),
@@ -40,6 +40,9 @@ export default {
         }
       } else if (this.$router.currentRoute.name.includes("password")) {
         this.$router.replace("/login");
+      } else {
+        alert();
+        this.$router.go(-1);
       }
     },
 
@@ -57,6 +60,7 @@ export default {
           this.$q.localStorage.set("identity", JSON.stringify(data));
         }
       }
+      this.$q.localStorage.set("isNotSplash", false);
       return null;
     }
   }

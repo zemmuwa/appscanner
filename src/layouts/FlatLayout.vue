@@ -1,11 +1,12 @@
 <template>
   <q-layout>
     <!-- Be sure to play with the Layout demo on docs -->
-    <q-page-container>
+    <q-page-container :class="isBlank ? '' : 'bg-roro'">
       <transition
+        mode="out-in"
         appear
-        enter-active-class="animated slideInDown"
-        leave-active-class="animated slideOutDown"
+        :leave-active-class="`animated ${animasiOut}`"
+        :enter-active-class="`animated ${animasiIn}`"
       >
         <router-view :key="key" style="animation-duration:0.5s" />
       </transition>
@@ -14,7 +15,10 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
+  mixins: [Vue.prototype.$mixinStore],
+  props: ["isBlank"],
   // name: 'LayoutName',
 
   data() {

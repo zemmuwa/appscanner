@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.prahu.roro" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Roro</name>
+<widget id="org.prahu.roro" version="1.1.b2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Scanner Boarding V1</name>
     <description>A Quasar Framework app</description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
@@ -14,7 +14,11 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="whatsapp:*" />
     <platform name="android">
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:allowBackup="false" />
+        </edit-config>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/icon-36-ldpi.png" />
         <icon density="mdpi" src="res/android/icon-48-mdpi.png" />
@@ -88,4 +92,8 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleInstance" />
+    <preference name="SplashScreenDelay" value="0" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#0780CC" />
+    <preference name="StatusBarStyle" value="lightcontent" />
 </widget>
