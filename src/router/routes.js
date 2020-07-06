@@ -58,7 +58,7 @@ const routes = [
   },
   {
     path: "/splashscreen",
-    component: () => import("layouts/FlatLayout.vue"),
+    component: () => import("layouts/FlatLayout2.vue"),
     props: () => ({
       isBlank: true
     }),

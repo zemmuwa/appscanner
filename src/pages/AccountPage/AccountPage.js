@@ -3,6 +3,7 @@ import Vue from "vue";
 import * as sql from "boot/initSQLite";
 import * as sp from "boot/sharedPref";
 import { Loading } from "quasar";
+import dialogCustom from "components/dialogCustom";
 export default {
   mixins: [Vue.prototype.$mixinStore],
   name: "PageIndex",
@@ -36,7 +37,33 @@ export default {
       }
       this.$router.replace("/login");
     },
-
+    dialogLogout() {
+      this.$q
+        .dialog({
+          title: `<span class="text-primary">Logout</span>`,
+          message: "Apakah anda yakin ingin keluar dari aplikasi scan ?",
+          persistent: true,
+          ok: {
+            push: true,
+            label: "Ya"
+          },
+          html: true,
+          cancel: {
+            push: true,
+            color: "accent",
+            label: "Tidak"
+          }
+        })
+        .onOk(async () => {
+          this.logOut();
+        })
+        .onCancel(() => {
+          // console.log('>>>> Cancel')
+        })
+        .onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        });
+    },
     async loadDataUser() {
       let _this = this;
       let data = await this.post({

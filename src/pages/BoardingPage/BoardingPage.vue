@@ -4,80 +4,133 @@
       <q-card class="q-mt-sm full-width">
         <q-card-section>
           <div class="row">
-            <div class="col-4">
+            <div class="col-5">
               <span class="text-caption text-primary">Rute</span>
             </div>
-            <div class="col-8 text-right">
+            <div class="col-7 text-right">
               <span class="text-caption text-primary">Keberangkatan</span>
             </div>
-            <div class="col-4">
-              <span class="text-caption text-no-wrap">{{
-                selectedJadwal ? selectedJadwal.POL : ""
-              }}</span>
-              <q-icon color="primary" class="q-mx-sm" name="arrow_right_alt" />
-              <span class="text-caption text-no-wrap">{{
-                selectedJadwal ? selectedJadwal.POD : ""
-              }}</span>
+            <div class="col-5">
+              <span
+                :class="
+                  `text-caption text-no-wrap ${
+                    selectedJadwal ? '' : 'text-grey'
+                  }`
+                "
+                >{{ selectedJadwal ? selectedJadwal.POL : "ASAL" }}</span
+              >
+              <q-icon
+                :color="selectedJadwal ? 'primary' : 'grey'"
+                class="q-mx-sm"
+                name="arrow_right_alt"
+              />
+              <span
+                :class="
+                  `text-caption text-no-wrap ${
+                    selectedJadwal ? '' : 'text-grey'
+                  }`
+                "
+                >{{ selectedJadwal ? selectedJadwal.POD : "TUJUAN" }}</span
+              >
             </div>
-            <div class="col-8 text-right">
-              <span class="text-caption text-primary">{{
-                selectedJadwal ? selectedJadwal.TglKeberangkatan : ""
-              }}</span>
+            <div class="col-7 text-right">
+              <span
+                :class="`text-caption ${selectedJadwal ? '' : 'text-grey'}`"
+                >{{
+                  selectedJadwal
+                    ? selectedJadwal.TglKeberangkatan
+                    : "Hari, DD/MM/YYYY HH:ss"
+                }}</span
+              >
             </div>
           </div>
           <hr class="dashed text-primary" />
-
-          <q-btn-dropdown
-            class="full-width"
-            unelevated
-            align="between"
-            dense
-            color="primary"
-            flat
-          >
-            <q-list>
-              <q-item
-                @click="setSelectedJadwal(index)"
-                v-for="(val, index) in filteredDetailJadwal"
-                :key="index"
-                clickable
-                v-close-popup
-              >
-                <q-item-section>
-                  <q-item-label class="text-primary text-caption">{{
-                    val.KapalNama
-                  }}</q-item-label>
-                  <q-item-label class="text-caption row justify-between"
-                    ><div class="row full-width">
-                      <div class="col-4">
-                        <span class="text-caption text-no-wrap">{{
-                          val.POL
-                        }}</span>
-                        <q-icon
-                          color="primary"
-                          class="q-mx-sm"
-                          name="arrow_right_alt"
-                        />
-                        <span class="text-caption text-no-wrap">{{
-                          val.POD
-                        }}</span>
+          <div class="relative-position">
+            <q-btn-dropdown
+              class="full-width"
+              unelevated
+              align="between"
+              dense
+              color="black"
+              flat
+            >
+              <q-list class="bg-info">
+                <q-item
+                  @click="setSelectedJadwal(index)"
+                  v-for="(val, index) in filteredDetailJadwal"
+                  :key="index"
+                  clickable
+                  v-close-popup
+                  :class="
+                    compareSlectedJadwal(selectedJadwal, val)
+                      ? 'bg-warning'
+                      : ''
+                  "
+                >
+                  <q-item-section>
+                    <q-item-label class="text-primary text-caption">{{
+                      val.KapalNama
+                    }}</q-item-label>
+                    <q-item-label class="text-caption row justify-between"
+                      ><div class="row full-width">
+                        <div class="col-4">
+                          <span
+                            :class="
+                              `text-caption text-no-wrap ${
+                                compareSlectedJadwal(selectedJadwal, val)
+                                  ? 'text-red'
+                                  : ''
+                              }`
+                            "
+                            >{{ val.POL }}</span
+                          >
+                          <q-icon
+                            color="primary"
+                            class="q-mx-sm"
+                            name="arrow_right_alt"
+                          />
+                          <span
+                            :class="
+                              `text-caption text-no-wrap ${
+                                compareSlectedJadwal(selectedJadwal, val)
+                                  ? 'text-red'
+                                  : ''
+                              }`
+                            "
+                            >{{ val.POD }}</span
+                          >
+                        </div>
+                        <div class="col-8 text-right">
+                          <span
+                            :class="
+                              `text-caption ${
+                                compareSlectedJadwal(selectedJadwal, val)
+                                  ? 'text-red'
+                                  : ''
+                              }`
+                            "
+                            >{{ val.TglKeberangkatan }}</span
+                          >
+                        </div>
                       </div>
-                      <div class="col-8 text-right">
-                        <span class="text-caption text-primary">{{
-                          val.TglKeberangkatan
-                        }}</span>
-                      </div>
-                    </div>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-            <template slot="label">
-              <span class="text-caption"
-                >{{ selectedJadwal ? selectedJadwal.KapalNama : "" }}
-              </span>
-            </template>
-          </q-btn-dropdown>
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+              <template slot="label">
+                <span
+                  :class="
+                    `text-caption ${
+                      selectedJadwal ? 'text-primary' : 'text-grey'
+                    }`
+                  "
+                  >{{
+                    selectedJadwal ? selectedJadwal.KapalNama : "Nama Kapal"
+                  }}
+                </span>
+              </template>
+            </q-btn-dropdown>
+          </div>
         </q-card-section>
       </q-card>
 
@@ -98,6 +151,8 @@
                     label="Nomor Booking"
                     color="primary"
                     placeholder="Masukan Nomor Booking"
+                    input-class="text-primary"
+                    input-style="border-bottom: 1px solid;"
                   />
                 </q-form>
               </div>
@@ -129,7 +184,7 @@
               </div>
               <div class="border-dashed-roro full-width">
                 <div class="column q-pa-sm">
-                  <span class="text-10 text-primary">Kelas - Tiket</span>
+                  <span class="text-10 text-primary">Kelas Tiket</span>
                   <span class="text-caption h-min-15">{{
                     data.KelasTiket
                   }}</span>
@@ -229,6 +284,20 @@
                 <span class="text-10 text-primary">Keterangan Tiket</span>
                 <span class="text-caption h-min-15">{{
                   data.KeteranganTiket
+                }}</span>
+              </div>
+            </div>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Bagasi</span>
+                <span class="text-caption h-min-15">{{ data.Bagasi }}</span>
+              </div>
+            </div>
+            <div class="border-dashed-roro full-width">
+              <div class="column q-pa-sm">
+                <span class="text-10 text-primary">Keterangan Bagasi</span>
+                <span class="text-caption h-min-15">{{
+                  data.KeteranganBagasi
                 }}</span>
               </div>
             </div>

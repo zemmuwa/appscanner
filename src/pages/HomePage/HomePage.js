@@ -49,11 +49,13 @@ export default {
           persistent: true,
           html: true,
           ok: {
-            push: true
+            push: true,
+            label: "Ya"
           },
           cancel: {
             push: true,
-            color: "accent"
+            color: "accent",
+            label: "Tidak"
           }
         })
         .onOk(async () => {
@@ -69,16 +71,18 @@ export default {
     dialogSyncData() {
       this.$q
         .dialog({
-          title: `<span class="text-primary">Download Data Jadwal</span>`,
+          title: `<span class="text-primary">Sinkronkan Data Scan</span>`,
           message: "Apakah anda yakin untuk meng-sinkron data scan ?",
           persistent: true,
           ok: {
-            push: true
+            push: true,
+            label: "Ya"
           },
           html: true,
           cancel: {
             push: true,
-            color: "accent"
+            color: "accent",
+            label: "Tidak"
           }
         })
         .onOk(async () => {
@@ -194,16 +198,17 @@ export default {
       return data;
     },
     async loadData() {
+      setTimeout(() => {
+        this.isShowBG = true;
+      }, 100);
       let userData = await this.loadDataUser();
+
       if (userData.info == "success") {
         this.namaPT = userData.data.NamaOperator;
         this.namaPetugas = userData.data.NamaPetugas;
         this.namaKantor = userData.data.Cabang;
         this.imgPetugas = userData.data.LogoOperator;
       }
-      setTimeout(() => {
-        this.isShowBG = true;
-      }, 500);
     }
   },
   mounted() {

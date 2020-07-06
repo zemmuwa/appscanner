@@ -190,7 +190,7 @@ module.exports = function(ctx) {
       //id: "org.prahu.roro.live"
       //id: "org.prahu.roro.demo"
       id: "org.prahu.roro",
-      version: "1.1.b2"
+      version: "1.1.b3"
     },
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {

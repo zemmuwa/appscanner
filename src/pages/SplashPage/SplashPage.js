@@ -4,7 +4,7 @@ export default {
   name: "splash",
   data() {
     return {
-      version: "1.1.b2"
+      version: "1.1.b3"
     };
   },
   mounted() {

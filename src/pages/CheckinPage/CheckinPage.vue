@@ -15,9 +15,7 @@
             <span class="text-caption text-no-wrap">{{ data.POD }}</span>
           </div>
           <div class="col-8 text-right">
-            <span class="text-caption text-primary">{{
-              data.TglKeberangkatan
-            }}</span>
+            <span class="text-caption">{{ data.TglKeberangkatan }}</span>
           </div>
         </div>
         <hr class="dashed text-primary" />
@@ -41,6 +39,8 @@
                   label="Nomor Booking"
                   color="primary"
                   placeholder="Masukan Nomor Booking"
+                  input-class="text-primary"
+                  input-style="border-bottom: 1px solid;"
                 />
               </q-form>
             </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="border-dashed-roro full-width">
               <div class="column q-pa-sm">
-                <span class="text-10 text-primary">Kelas - Tiket</span>
+                <span class="text-10 text-primary">Kelas Tiket</span>
                 <span class="text-caption h-min-15">{{ data.KelasTiket }}</span>
               </div>
             </div>

@@ -58,8 +58,8 @@
               style="width:80%"
               icon="exit_to_app"
               label="Logout"
-              @click="logOut()"
-              class="bg-roro3-to-left text-white"
+              @click="dialogLogout()"
+              class="bg-roro3-to-left text-white q-my-sm"
             />
           </div>
         </q-card-section>

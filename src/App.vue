@@ -41,7 +41,6 @@ export default {
       } else if (this.$router.currentRoute.name.includes("password")) {
         this.$router.replace("/login");
       } else {
-        alert();
         this.$router.go(-1);
       }
     },

@@ -220,6 +220,13 @@ export default {
     setSelectedJadwal(index) {
       this.selectedJadwal = this.filteredDetailJadwal[index];
     },
+    compareSlectedJadwal(selected, val) {
+      if (selected != null) {
+        return selected.ID == val.ID;
+      } else {
+        return false;
+      }
+    },
     openScanner() {
       let _this = this;
       cordova.plugins.barcodeScanner.scan(
