@@ -150,9 +150,10 @@
                     :disable="selectedJadwal ? false : true"
                     label="Nomor Booking"
                     color="primary"
-                    placeholder="Masukan Nomor Booking"
-                    input-class="text-primary"
-                    input-style="border-bottom: 1px solid;"
+                    label-color="primary"
+                    placeholder="Masukkan Nomor Booking"
+                    input-class="text-10"
+                    input-style="border-bottom: 1px solid #0780cc;"
                   />
                 </q-form>
               </div>
@@ -289,7 +290,7 @@
             </div>
             <div class="border-dashed-roro full-width">
               <div class="column q-pa-sm">
-                <span class="text-10 text-primary">Bagasi</span>
+                <span class="text-10 text-primary">Berat Bagasi (Kg) </span>
                 <span class="text-caption h-min-15">{{ data.Bagasi }}</span>
               </div>
             </div>
@@ -312,10 +313,15 @@
     >
       <q-btn
         fab
-        icon="center_focus_strong"
         color="primary"
+        dense=""
+        size="lg"
+        padding="10px"
+        style="border-radius: 10px;"
         @click="openScanner()"
-      />
+      >
+        <q-icon name="qr_code_scanner" size="md" />
+      </q-btn>
     </q-page-sticky>
   </q-page>
 </template>

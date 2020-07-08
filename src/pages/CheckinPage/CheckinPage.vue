@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex q-px-md">
-    <q-card class="q-mt-sm full-width">
+    <q-card class="q-mt-sm full-width fit-height" style="">
       <q-card-section>
         <div class="row">
           <div class="col-4">
@@ -38,9 +38,10 @@
                   v-model="nomer_booking"
                   label="Nomor Booking"
                   color="primary"
-                  placeholder="Masukan Nomor Booking"
-                  input-class="text-primary"
-                  input-style="border-bottom: 1px solid;"
+                  label-color="primary"
+                  placeholder="Masukkan Nomor Booking"
+                  input-class="text-10"
+                  input-style="border-bottom: 1px solid #0780cc;"
                 />
               </q-form>
             </div>
@@ -173,10 +174,15 @@
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
         fab
-        icon="qr_code_scanner"
         color="primary"
+        dense=""
+        size="lg"
+        padding="10px"
+        style="border-radius: 10px;"
         @click="openScanner()"
-      />
+      >
+        <q-icon name="qr_code_scanner" size="md" />
+      </q-btn>
     </q-page-sticky>
   </q-page>
 </template>
@@ -186,5 +192,8 @@
 <style scoped>
 .h-min-15 {
   min-height: 15px;
+}
+.fit-height {
+  height: fit-content;
 }
 </style>
