@@ -10,7 +10,7 @@
     "__internal": {
       "dev": {
         "spa": {
-          "iconHash": "83385f5726b0ca00bdfcce23eeae7bd5"
+          "iconHash": "7bc7982c450dd0d43d8aa9364412c56d"
         },
         "cordova": {
           "iconHash": "83385f5726b0ca00bdfcce23eeae7bd5",
@@ -21,7 +21,7 @@
       },
       "build": {
         "cordova": {
-          "iconHash": "83385f5726b0ca00bdfcce23eeae7bd5",
+          "iconHash": "7bc7982c450dd0d43d8aa9364412c56d",
           "splashscreenHash": "4f28ffdca6ba3014a4646875016eddf1",
           "splashscreenType": "pure",
           "backgroundColor": "#FFFFFF"

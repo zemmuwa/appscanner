@@ -152,7 +152,6 @@
                     color="primary"
                     label-color="primary"
                     placeholder="Masukkan Nomor Booking"
-                    input-class="text-10"
                     input-style="border-bottom: 1px solid #0780cc;"
                   />
                 </q-form>
