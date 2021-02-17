@@ -7,5 +7,6 @@ export default {
   barTitle: "",
   reloadPage: 1,
   animasiIn: "fadeIn",
-  animasiOut: "fadeOut"
+  animasiOut: "fadeOut",
+  versionAPK: '1.2.b5'
 };
