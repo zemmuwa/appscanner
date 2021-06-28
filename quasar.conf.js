@@ -186,10 +186,10 @@ module.exports = function(ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      //id: "org.prahu.roro.rc"
-      //id: "org.prahu.roro.live"
-      //id: "org.prahu.roro.demo"
-      id: "org.prahu.roro.dev",
+      id: "org.prahu.roro.rc",
+      //id: "org.prahu.roro.live",
+      //id: "org.prahu.roro.demo",
+      // id: "org.prahu.roro.dev",
       version: "1.2.b5"
     },
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor

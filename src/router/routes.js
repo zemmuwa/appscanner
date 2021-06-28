@@ -80,6 +80,11 @@ const routes = [
         name: "login-page"
       },
       {
+        path: "/maintance",
+        component: () => import("pages/MaintancePage/MaintancePage.vue"),
+        name: "maintance-page"
+      },
+      {
         path: "/resetPassword",
         component: () =>
           import("pages/ResetPasswordPage/ResetPasswordPage.vue"),

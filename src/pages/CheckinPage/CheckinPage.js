@@ -58,6 +58,8 @@ export default {
       let _this = this;
       cordova.plugins.barcodeScanner.scan(
         function(result) {
+          // let a =  result.text.split(';');
+          result.text = result.text.split(";")[1];
           _this.nomer_booking = result.text;
           _this.onSubmit();
         },
@@ -82,9 +84,21 @@ export default {
     loadData() {},
     capitalize(param) {
       return capitalize(param);
+    },
+    async cekMaintain() {
+      let _this = this;
+      this.post({
+        url: `${_this.baseURL}cekmainten`
+      }).then(values => {
+        if (values.info == "nottrue") {
+          this.$router.push("/maintance");
+          return 1;
+        }
+      });
     }
   },
   mounted() {
     this.setBarTitle("Check-in");
+    this.cekMaintain();
   }
 };

@@ -30,6 +30,7 @@ export default function({ store }) {
   Router.beforeEach((to, from, next) => {
     const publicPages = [
       "login-page",
+      "maintance-page",
       "validate-password-page",
       "reset-password-page"
     ];
@@ -105,7 +106,9 @@ export default function({ store }) {
           }
         });
       }
-      if (authRequired) {
+      if (to.name == "maintance-page") {
+        next();
+      }else if (authRequired) {
         if (login) {
           next();
         } else {

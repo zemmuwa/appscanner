@@ -209,6 +209,18 @@ export default {
         this.namaKantor = userData.data.Cabang;
         this.imgPetugas = userData.data.LogoOperator;
       }
+    },
+    async cekMaintain() {
+      let _this = this;
+      this.post({
+        url: `${_this.baseURL}cekmainten`
+      }).then(values => {
+        if (values.info == "nottrue") {
+          this.$router.push("/maintance");
+          return 1;
+        }
+        return 1;
+      });
     }
   },
   mounted() {
@@ -216,5 +228,6 @@ export default {
     this.setAnimOut("slideOutDown");
     this.setBarTitle("Home");
     this.loadData();
+    this.cekMaintain();
   }
 };

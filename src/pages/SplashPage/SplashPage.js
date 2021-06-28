@@ -17,15 +17,26 @@ export default {
           UserID: this.userID
         }
       });
-      if (data.info!=this.versionAPK) {
-        alert('Harap perbarui aplikasi anda')
+      if (data.info != this.versionAPK) {
+        alert("Harap perbarui aplikasi anda");
         window.open(data.link);
       }
     },
+    cekMaintain() {
+      let _this = this;
+      this.post({
+        url: `${_this.baseURL}cekmainten`
+      }).then(values => {
+        if (values.info == "nottrue") {
+          this.$router.push("/maintance");
+        }
+      });
+    }
   },
   mounted() {
     this.$q.localStorage.set("isNotSplash", true);
-    this.loadDataAPK()
+    this.loadDataAPK();
+    this.cekMaintain();
     setTimeout(() => {
       this.$router.replace("/");
     }, 4000);

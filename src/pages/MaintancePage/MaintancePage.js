@@ -3,13 +3,12 @@ import { setTimeout } from "timers";
 import { uid } from "quasar";
 
 export default {
-  name: "login",
+  name: "maintance",
   mixins: [Vue.prototype.$mixinStore],
   data() {
     return {
       email: "",
       password: "",
-      isi: "",
       bounce: false,
       isPwd: true
     };
@@ -80,8 +79,8 @@ export default {
       this.post({
         url: `${_this.baseURL}cekmainten`
       }).then(values => {
-        if (values.info == "nottrue") {
-          this.$router.push("/maintance");
+        if (values.info == "gagal") {
+          this.$router.push("/login");
           return 1;
         }
       });
@@ -94,7 +93,7 @@ export default {
       function() {
         this.cekMaintain();
       }.bind(this),
-      2000
+      20000
     );
     // this.$q.localStorage.remove("isNotSplash");
     // alert(this.$q.localStorage.getItem("isNotSpalsh"));
