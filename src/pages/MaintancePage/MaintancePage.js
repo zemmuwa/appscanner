@@ -79,6 +79,8 @@ export default {
       this.post({
         url: `${_this.baseURL}cekmainten`
       }).then(values => {
+        // eslint-disable-next-line no-console
+        console.log('test');
         if (values.info == "gagal") {
           this.$router.push("/login");
           return 1;
@@ -89,12 +91,12 @@ export default {
   mounted() {
     this.setAnimIn("slideInDown");
     this.setAnimOut("slideOutDown");
-    setInterval(
-      function() {
+    // setInterval(
+    //   function() {
         this.cekMaintain();
-      }.bind(this),
-      20000
-    );
+    //   }.bind(this),
+    //   20000
+    // );
     // this.$q.localStorage.remove("isNotSplash");
     // alert(this.$q.localStorage.getItem("isNotSpalsh"));
   }

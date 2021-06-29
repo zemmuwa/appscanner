@@ -9,13 +9,13 @@ document.addEventListener("deviceready", function() {
   db.transaction(function(tx) {
     //tx.executeSql("DROP TABLE IF EXISTS DetailBookingData");
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS DetailBookingData (DetailBookingID integer, JadwalID integer, NomorBooking varchar(255),IsScanned tinyint,JsonData text)"
+      "CREATE TABLE IF NOT EXISTS DetailBookingData (DetailBookingID integer, JadwalID integer, NomorBooking varchar(255),IsScanned tinyint,status_tiket varchar(255),JsonData text)"
     );
   });
 });
 export function insertDetailBookingData(param) {
   db.executeSql(
-    "INSERT INTO DetailBookingData (DetailBookingID, JadwalID,NomorBooking,IsScanned,JsonData) VALUES (?,?,?,?,?)",
+    "INSERT INTO DetailBookingData (DetailBookingID, JadwalID,NomorBooking,IsScanned,status_tiket,JsonData) VALUES (?,?,?,?,?,?)",
     param,
     function(tx, res) {
       console.log("insertId: " + res.insertId);
@@ -94,7 +94,7 @@ export function clearDetailBookingData() {
   db.transaction(function(tx) {
     tx.executeSql("DROP TABLE IF EXISTS DetailBookingData");
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS DetailBookingData (DetailBookingID integer, JadwalID integer, NomorBooking varchar(255),IsScanned tinyint,JsonData text)"
+      "CREATE TABLE IF NOT EXISTS DetailBookingData (DetailBookingID integer, JadwalID integer, NomorBooking varchar(255),IsScanned tinyint,status_tiket varchar(255),JsonData text)"
     );
   });
 }

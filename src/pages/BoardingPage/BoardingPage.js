@@ -104,10 +104,14 @@ export default {
               console.log(_this.selectedJadwal.ID, "ok");
               if (data.length) {
                 // eslint-disable-next-line no-console
-
+                console.log(data[0].status_tiket);
                 _this.data = JSON.parse(data[0].JsonData);
-                if (yet == 1) {
+                if(_this.data.status_tiket=='refund'){
+                  this.showNotif("Tiket telah dibatalkan", "accent");
+                }else if (yet == 1) {
                   this.showNotif("Data sudah discan", "accent");
+                } else if(yet == 2){
+                  this.showNotif("Tiket telah dibatalkan", "accent");
                 } else {
                   this.showNotif("Data berhasil discan", "secondary", "done");
                 }
@@ -132,8 +136,12 @@ export default {
           console.log(_this.selectedJadwal.ID, "ok2");
           if (data.length) {
             _this.data = JSON.parse(data[0].JsonData);
+            // eslint-disable-next-line no-console
+            console.log(_this.data);
             if (data[0].IsScanned == 1) {
               yet = 1;
+            } else if(_this.data.status_tiket=='refund'){
+              yet = 2;
             } else {
               yet = 0;
             }

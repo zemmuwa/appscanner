@@ -123,6 +123,7 @@ export default {
           PetugasID: this.userID
         }
       }).then(values => {
+        this.syncToServer();
         if (values.info == "success") {
           this.data = values.data;
           _this.showLoading = true;
@@ -133,11 +134,13 @@ export default {
               element.JadwalID,
               element.nomer_booking,
               0,
+              element.status_tiket,
               JSON.stringify(element)
             ]);
             _this.saved++;
           });
           _this.showLoading = false;
+          
           this.showNotif(
             `Data berhasil di download (${values.countData}) `,
             "secondary",
